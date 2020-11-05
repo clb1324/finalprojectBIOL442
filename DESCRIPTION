@@ -1,0 +1,23 @@
+Package: BIOL442FinalProject
+Title: Pet Abundance, Species Breakdown, and Breed Breakdown by ZIP Code
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Christina",
+           family = "Bi",
+           role = c("aut", "cre"),
+           email = "clb287@georgetown.edu",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This package contains three functions that work with pet registration data from one city. The functions will clean the registration data, give the number of registered pets and the dog-to-cat ratio in each ZIP code of the city, and can produce pie charts that show the breed breakdown of dogs or cats in the ZIP code of interest.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to
+    pick a license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Suggests:
+	knitr,
+	rmarkdown,
+	stringr
+VignetteBuilder: knitr
+Depends:
+	R (>= 2.10)

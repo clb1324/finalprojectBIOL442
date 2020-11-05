@@ -1,0 +1,39 @@
+---
+title: "BIOL442FinalPackageVignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{BIOL442FinalPackageVignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+This package contains three functions which are meant to clean and analyze pet registration data. The example data included in this package looks specifically at pet registration data from the city of Seattle, WA, but any pet registration data can be used with this package as long as there is an included ZIP code to identify the pet's location.
+*Note: if the data used in this package is outside the bounds of Washington state in the US, you will want to change the last two lines of the CleanPetData() function, as it creates bounds for the appropriate ZIP codes of interest. In this particular example, the ZIP code boundries confine the data set to Washington state. In the package folder, there is a map that defines ZIP codes by state in the US (ZIPCodeMap.jpg). Please use this map for reference when defining the desired ZIP code boundaries.
+In this package, there are also two example data sets. One is the full data set of registered pet data in Seattle from data.gov, with the file name pet_licenses_master.rda. The second is a subset of that data with the first 500 entries, with the file name example_pet_data.rda.
+
+```{r setup}
+library(BIOL442FinalProject)
+```
+
+The first function in this package is titled "cleandatafunction.R" and the function name is CleanPetData(). This function takes registration pet data, cleans it, and makes a new dataframe with the relevant and appropriate columns from the raw data.
+The cleaning function creates a new dataframe "pet_licenses" with data columns of the ZIP code, species of pet, and breed of pet from the original data set.
+Any rows with missing entries are removed.
+Certain breeds are condensed into more general categories.
+ZIP codes outside of the range of Washington state are removed. This also removes any ZIP codes that were incorrectly entered (too digits, too many digits, etc.).
+
+```{r}
+clean_pet_licenses <- CleanPetData(example_data)
+head(clean_pet_licenses)
+```
+
+The second function, SortZIPCodes(), takes the cleaned pet data from the CleanPetData() function, and sorts it by ZIP code. The input for this function should be a data frame with the three columns ZIPCode, Species, and Primary.Breed. The output will be a dataframe that specifies the number of registered pet and the ratio of dog:cat in each zip code. The dataframe is also sorted to display the ZIP codes in descending order of number of registered pets. The package "stringr" is required for this function. The input for this function can be the output from the CleanPetData() function or can be a dataframe of similar formatting.
+
+```{r}
+zipcode_pets <- SortZIPCodes(CleanPetData(example_data))
+head(zipcode_pets)
+```
+
+The third and final function of this package, PetPieChart(), takes the clean data output from the CleanPetData() function and produces a pie chart breakdown of the breeds in a specific ZIP code. The user needs to input the cleaned dataframe, a specific zip code in the format of "00000", and either "Dog" or "Cat", depending on the desired output. The cleaned dataframe input can be the output from the CleanPetData() function or can be a dataframe of similar formatting.
+
+```{r}
+PetPieChart(CleanPetData(example_data), "98115", "Dog")
+```
